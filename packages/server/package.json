@@ -1,10 +1,10 @@
 {
   "name": "@proffy/server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.ts",
   "license": "MIT",
   "scripts": {
-    "start": "tsnd --ignore node_modules --transpile-only --no-notify --respawn src/index.ts"
+    "start": "tsnd --ignore node_modules --transpile-only --no-notify --respawn src/server.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
