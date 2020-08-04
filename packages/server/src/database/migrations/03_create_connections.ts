@@ -13,7 +13,7 @@ export async function up (knex: Knex): Promise<unknown> {
       .onDelete('CASCADE')
 
     table.timestamp('created_at')
-      .defaultTo('now()')
+      .defaultTo(knex.raw('CURRENT_TIMESTAMP'))
       .notNullable()
   })
 }
