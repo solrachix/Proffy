@@ -8,11 +8,11 @@ export const Container = styled.div`
   /* max-width: 1100px; */
   margin: 0 auto;
   /* padding: 0 30px; */
-  background: ${({ theme }) => theme.colors.themeColors.secondary};
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   @media(max-width: 900px) {
     align-items: center;
     text-align: center;

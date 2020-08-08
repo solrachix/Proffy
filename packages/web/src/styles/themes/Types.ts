@@ -4,10 +4,21 @@ export type ThemeTypes = {
   title: string,
   colors: {
     themeColors: {
-      primary: string,
+      primary: {
+        lighter: string,
+        light: string,
+        normal: string,
+        dark: string,
+        darker: string,
+      },
       secondary: string,
       tertiary: string,
-      text: string,
+
+      text: {
+        light: string;
+        normal: string;
+        dark: string;
+      }
     }
 
     white: string;
