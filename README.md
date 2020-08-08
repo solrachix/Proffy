@@ -1,5 +1,5 @@
 <p align="center">
-   <img src=""https://github.com/solrachix/proffy/blob/master/.github/logo.png?raw=true" alt="Proffy" width="280"/>
+   <img src="https://github.com/solrachix/proffy/blob/master/.github/logo.png?raw=true" alt="Proffy" width="280"/>
 </p>
 
 <p align="center">
@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Proffy-NLW%202.0-5659EB?style=for-the-badge&labelColor=5659EB&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAALVBMVEVHcExxWsF0XMJzXMJxWcFsUsD///9jRrzY0u6Xh9Gsn9n39fyMecy0qd2bjNJWBT0WAAAABHRSTlMA2Do606wF2QAAAGlJREFUGJVdj1cWwCAIBLEsRU3uf9xobDH8+GZwUYi8i6ucJwrxKE+7D0G9Q4vlYqtmCSjndr4CgCgzlyFgfKfKCVO0LrPKjmiqMxGXkJwNnXskqWG+1oSM+BSwD8f29YLNjvx/OQrn+g99oQSoNmt3PgAAAABJRU5ErkJggg=="></img>
   </a>
   <a href="https://github.com/solrachix/proffy/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/solrachix/proffy?style=for-the-badge&label=last commit:&labelColor=5659EB&color=5659EB">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/solrachix/proffy?style=for-the-badge&label=last%20commit:&labelColor=5659EB&color=5659EB">
   </a>
   <img alt="License" src="https://img.shields.io/badge/license-MIT-5659EB?style=for-the-badge&labelColor=5659EB&color=5659EB">
   <br />
