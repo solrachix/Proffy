@@ -15,6 +15,12 @@ routes.get('/', (req, res) => {
 })
 
 /**
+ * Autenticação do Header Authorization em todas as rotas após essa!!
+ */
+import auth from './middlewares/auth'
+routes.use(auth)
+
+/**
  * Rota "classes"
  * default Controllers = index, show, create, update, delete
  */
