@@ -25,7 +25,9 @@ module.exports = {
     "@typescript-eslint"
   ],
   rules: {
-    // "react/prop-types": "off",
+    "react/prop-types": "off",
+    '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
     "import/extensions": [
       "error",
       "ignorePackages",
