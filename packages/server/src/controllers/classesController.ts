@@ -18,10 +18,10 @@ interface Filters {
 export default class ClassController {
   async index (request: Request, response: Response): Promise<Response<unknown>> {
     const filters = request.query
-
-    const week_day = Number(filters.week_day as string)
-    const subject = filters.subject as string
-    const time = filters.time as string
+    console.log(filters)
+    const week_day = Number(filters.week_day)
+    const subject = String(filters.subject)
+    const time = String(filters.time)
 
     if (!week_day || !subject || !time) {
       return response.status(400).json({
@@ -40,7 +40,7 @@ export default class ClassController {
           .whereRaw('`class_schedule`.`from` <= ??', [timeInMinutes])
           .whereRaw('`class_schedule`.`to` > ??', [timeInMinutes])
       })
-      .where('classes.subject', '=', subject)
+      .where('classes.subject', 'like', `%${subject}%`)
       .join('users', 'classes.user_id', '=', 'users.id')
       .select('classes.*', 'users.*')
 
@@ -48,27 +48,17 @@ export default class ClassController {
   }
 
   async create (request: Request, response: Response): Promise<Response<unknown>> {
+    const user_id = request.headers.userId
     const {
-      name,
-      bio,
-      avatar,
-      whatsapp,
-
       subject,
       cost,
       schedule
     } = request.body
 
+    console.log(user_id)
     const trx = await db.transaction()
 
     try {
-      const [user_id] = await trx('users').insert({
-        name,
-        bio,
-        avatar,
-        whatsapp
-      })
-
       const [class_id] = await trx('classes').insert({
         subject,
         cost,
