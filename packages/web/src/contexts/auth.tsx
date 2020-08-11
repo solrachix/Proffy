@@ -34,9 +34,9 @@ export const AuthProvider: React.FC = ({ children }) => {
       const token = localStorage.getItem('@RAuth:token')
 
       if (user && token) {
-        api.defaults.headers.Authorization = `token ${token[1]}`
+        api.defaults.headers.Authorization = `token ${token}`
 
-        setUser(JSON.parse(user[1]))
+        setUser(JSON.parse(user))
       }
       setLoading(false)
     }
@@ -72,6 +72,5 @@ export const AuthProvider: React.FC = ({ children }) => {
 export function useAuth () {
   const context = useContext(AuthContext)
 
-  console.log(AuthContext, context)
   return context
 }
