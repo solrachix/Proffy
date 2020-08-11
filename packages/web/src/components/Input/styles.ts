@@ -1,7 +1,14 @@
 import styled from 'styled-components'
-import { darken } from 'polished'
+import { darken, rgba } from 'polished'
 
-export const Container = styled.div`
+import { FiEye, FiEyeOff } from 'react-icons/fi'
+
+interface Props {
+  isPassword: boolean
+}
+export const Container = styled.div<Props>`
+  width: 100%;
+  margin-bottom: 24px;
   label {
     color: ${props => props.theme.colors.themeColors.text.light};
   }
@@ -9,6 +16,7 @@ export const Container = styled.div`
   label {
     font-size: 1.4rem;
   }
+
   input {
     width: 100%;
     height: 5.6rem;
@@ -18,11 +26,12 @@ export const Container = styled.div`
     background: ${props => props.theme.colors.themeColors.tertiary};
     border-radius: 0.8rem;
     border: 1px solid ${props => darken(0.1, props.theme.colors.themeColors.tertiary)};
-    box-shadow: 0px 13px 7px -10px ${props => darken(0.1, props.theme.colors.themeColors.tertiary)};
+    box-shadow: 0px 13px 7px -10px ${props => rgba(darken(0.1, props.theme.colors.themeColors.tertiary), 0.4)};
 
     outline: 0;
     font: 1.6rem Archivo;
   }
+
   &:focus-within::after {
     width: calc(100% - 3.2rem);
     height: 2px;
@@ -40,5 +49,30 @@ export const Container = styled.div`
     & + & {
       margin-top: 0;
     }
+  }
+`
+
+export const Eye = styled(FiEye)`
+  position: absolute;
+  top: 60%;
+  right: 4%;
+
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.themeColors.text.light};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.themeColors.primary.normal};
+  }
+`
+export const EyeOff = styled(FiEyeOff)`
+  position: absolute;
+  top: 60%;
+  right: 4%;
+
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.themeColors.text.light};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.themeColors.primary.normal};
   }
 `

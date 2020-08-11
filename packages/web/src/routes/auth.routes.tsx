@@ -1,14 +1,15 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-const Routes: React.FC = () => {
+import Auth from '../pages/Auth'
+const AuthRoutes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={() => <div />} />
+        <Route path="/" exact component={Auth} />
       </Switch>
     </BrowserRouter>
   )
 }
 
-export default Routes
+export default AuthRoutes

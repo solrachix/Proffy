@@ -5,7 +5,7 @@ import Landing from '../pages/Landing'
 import TeacherList from '../pages/TeacherList'
 import TeacherForm from '../pages/TeacherForm'
 
-const Routes: React.FC = () => {
+const AppRoutes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
@@ -17,4 +17,4 @@ const Routes: React.FC = () => {
   )
 }
 
-export default Routes
+export default AppRoutes

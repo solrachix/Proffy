@@ -53,7 +53,6 @@ const TeacherForm: React.FC = () => {
   const handleCreateClass = (e: FormEvent) => {
     e.preventDefault()
 
-    console.log('opa')
     api
       .post('classes', {
         name,

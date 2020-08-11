@@ -1,19 +1,29 @@
-import React, { InputHTMLAttributes } from 'react'
+import React, { useState, InputHTMLAttributes } from 'react'
 import PropTypes from 'prop-types'
 
-import { Container } from './styles'
+import { Container, Eye, EyeOff } from './styles'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: string;
   name: string;
   label: string;
+  ref?: any;
 }
 
-const Input: React.FC<InputProps> = ({ type, name, label, ...props }) => {
+const Input: React.FC<InputProps> = ({ name, label, ...props }) => {
+  const [type, setType] = useState(props.type)
+  const isPassword = props.type === 'password'
+
   return (
-    <Container className="input-block" >
+    <Container isPassword={isPassword} className="input-block" >
       <label htmlFor={name}>{label}</label>
       <input {...{ ...props, ...{ type, id: name } }} />
+      { isPassword
+        ? type === 'password'
+          ? <Eye onClick={() => setType('text')}/>
+          : <EyeOff onClick={() => setType('password')}/>
+        : null
+      }
     </Container>
   )
 }

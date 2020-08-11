@@ -7,7 +7,7 @@ interface StyledProps {
   align?: string;
   size?: number;
   color?: string;
-  bold?: string | number
+  weight?: string | number
 }
 
 interface ComponentProps extends StyledProps {
@@ -23,7 +23,7 @@ const TextComponent: React.FC<ComponentProps> = ({ text, ...props }) => {
     font-family: Roboto, sans-serif;
     text-align: ${({ align }) => align};
     font-size: ${({ size }) => size}em;
-    font-weight: ${({ bold }) => bold};
+    font-weight: ${({ weight }) => weight};
     color: ${({ color }) => color};
     margin: 0;
     word-break: break-word;
@@ -36,7 +36,7 @@ TextComponent.propTypes = {
   align: PropTypes.string,
   size: PropTypes.number,
   color: PropTypes.string,
-  bold: PropTypes.oneOf([
+  weight: PropTypes.oneOf([
     'normal', 'bold',
     100, 200, 300, 400, 500, 600, 700, 800, 900
   ])
@@ -45,7 +45,7 @@ TextComponent.propTypes = {
 TextComponent.defaultProps = {
   size: 1,
   color: '#fff',
-  bold: 'normal',
+  weight: 'normal',
   align: 'left'
 }
 
