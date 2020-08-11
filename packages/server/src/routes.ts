@@ -1,7 +1,11 @@
 /* eslint-disable import/first */
 import express from 'express'
+import multer from 'multer'
 
 const routes = express.Router()
+
+import multerConfig from './config/multer'
+const upload = multer(multerConfig)
 
 /**
  * Rota /
@@ -41,6 +45,15 @@ import ClassesController from './controllers/classesController'
 const classesController = new ClassesController()
 routes.get('/classes', classesController.index)
 routes.post('/classes', classesController.create)
+
+import MidiaController from './controllers/midiaController'
+const midiaController = new MidiaController()
+routes.get('/classes/:id/listMidia', midiaController.index)
+routes.post(
+  '/classes/:id/newMidia',
+  upload.array('files', 6),
+  midiaController.create
+)
 
 /**
  * Rota "classes"

@@ -18,7 +18,7 @@ interface Filters {
 export default class ClassController {
   async index (request: Request, response: Response): Promise<Response<unknown>> {
     const filters = request.query
-    console.log(filters)
+
     const week_day = Number(filters.week_day)
     const subject = String(filters.subject)
     const time = String(filters.time)
@@ -41,8 +41,13 @@ export default class ClassController {
           .whereRaw('`class_schedule`.`to` > ??', [timeInMinutes])
       })
       .where('classes.subject', 'like', `%${subject}%`)
+      // .join('midia', 'classes.id', '=', 'midia.classe_id')
       .join('users', 'classes.user_id', '=', 'users.id')
       .select('classes.*', 'users.*')
+
+    classes.map(classe => {
+      delete classe.password
+    })
 
     return response.json(classes)
   }
