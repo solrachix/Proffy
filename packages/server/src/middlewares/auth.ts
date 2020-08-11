@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
-import jwt from 'jsonwebtoken'
+import db from './../database/connection'
+import { verifyToken } from '../models/user'
 
 require('dotenv').config()
 
@@ -10,11 +11,12 @@ export default async function (req: Request, res: Response, next: NextFunction) 
 
   const [scheme, token] = String(authHeader).split(' ')
 
-  // const decoded = await promisify(jwt.verify)(token, "secret");
-  const decoded = await jwt.verify(token, process.env.JWTSecretKey || '')
-  if (!decoded) return res.status(401).send({ error: 'Token invalid' })
+  const decoded = await verifyToken(token)
+  const user = await db('users').select('*').where('id', '=', decoded?.id || '').first()
 
-  req.headers.userId = decoded.id
+  if (!user && !decoded) return res.status(401).send({ error: 'Token invalid' })
+
+  req.headers.userId = String(decoded?.id)
 
   return next()
 };
