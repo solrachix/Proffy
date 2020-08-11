@@ -13,7 +13,10 @@ export default createGlobalStyle`
   }
 
   html, body, #root {
+    max-width: 100vw;
     min-height: 100vh;
+
+    overflow-x: hidden;
   }
 
   body {
@@ -47,11 +50,11 @@ export default createGlobalStyle`
     }
   }
 
-  ::-webkit-scrollbar{
+  ::-webkit-scrollbar {
     width: 8px;
-    background: ${({ theme }) => theme.colors.themeColors.primary.dark};
+    background: transparent;
   }
-  ::-webkit-scrollbar-thumb{
+  ::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.colors.themeColors.primary.dark};
     border-radius: 50px;
   }
