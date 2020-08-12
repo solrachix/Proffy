@@ -1,5 +1,6 @@
 import React, { useState, FormEvent } from 'react'
 import api from '@proffy/axios-config'
+import { daysOfTheWeek } from './../../utils/daysOfTheWeek'
 
 import PageHeader from '../../components/PageHeader'
 
@@ -11,18 +12,18 @@ import TeacherItem, { Teacher } from '../../components/TeacherItem'
 
 const TeacherList: React.FC = () => {
   const [subject, setSubject] = useState('')
-  const [weekday, setWeekday] = useState('')
+  const [week_day, setWeek_day] = useState('')
   const [time, setTime] = useState('')
   const [teachers, setTeachers] = useState([])
 
   async function searchTeachers (e: FormEvent) {
     e.preventDefault()
     console.log({
-      subject, weekday, time
+      subject, week_day, time
     })
     await api.get('classes', {
       params: {
-        subject, weekday, time
+        subject, week_day, time
       }
     })
       .then(resp => setTeachers(resp.data))
@@ -31,7 +32,7 @@ const TeacherList: React.FC = () => {
 
   return (
     <PageTeacherList>
-      <PageHeader title="Estes são os proffys disponíveis.">
+      <PageHeader pageName="Procurar Professores" title="Estes são os proffys disponíveis.">
         <SearchTeachers onSubmit={searchTeachers}>
           <Select
             label="Matéria"
@@ -44,24 +45,15 @@ const TeacherList: React.FC = () => {
               { value: 'Historia', label: 'Historia' },
               { value: 'Filosofia', label: 'Filosofia' }
             ]}
-            value={subject}
-            onChange={e => setSubject(e.target.value)}
+
+            onChange={(e) => setSubject(e.value)}
           />
 
           <Select
             label="Dia da semana"
             name="week_day"
-            options={[
-              { value: '0', label: 'Domingo' },
-              { value: '1', label: 'Segunda-feira' },
-              { value: '2', label: 'Terça-feira' },
-              { value: '3', label: 'Quarta-feira' },
-              { value: '4', label: 'Quinta-feira' },
-              { value: '5', label: 'Sexta-feira' },
-              { value: '6', label: 'Sábado' }
-            ]}
-            value={weekday}
-            onChange={e => setWeekday(e.target.value)}
+            options={daysOfTheWeek()}
+            onChange={(e) => setWeek_day(e.value)}
           />
 
           <Input type="time" label="Hora" name="time"

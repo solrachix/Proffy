@@ -76,6 +76,20 @@ export const HeaderContent = styled.div<HeaderContentProps>`
 
     z-index: 10;
   }
+
+  > nav {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    margin-top: 34%;
+
+    display: flex;
+    flex: 1;
+
+    @media (max-width: 690px) {
+      margin-top: 0%;
+    }
+  }
   @media (min-width: 700px) {
     flex: 1;
     max-width: 740px;

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { darken } from 'polished'
+import { FaUserAstronaut } from 'react-icons/fa'
 
 export const TeacherItemComponent = styled.article`
   background: ${props => props.theme.colors.themeColors.tertiary};
@@ -58,7 +59,7 @@ export const TeacherItemComponent = styled.article`
       font-size: 1.6rem;
       display: block;
     }
-    button {
+    a {
       width: 20rem;
       height: 5.6rem;
       background: ${props => props.theme.colors.themeColors.secondary};
@@ -91,13 +92,85 @@ export const TeacherItemComponent = styled.article`
       display: initial;
       margin-left: 1.6rem;
     }
-    footer button {
+    footer a {
       width: 24.5rem;
       font-size: 1.6rem;
       justify-content: center;
     }
-    footer button img {
+    footer a img {
       margin-right: 1.6rem;
+    }
+  }
+`
+
+export const UserAstronaut = styled(FaUserAstronaut)`
+  width: 6rem;
+  height: 6rem;
+
+  color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.themeColors.primary.light};
+  border-radius: 50%;
+  transition: all 0.2s ease 0s, transform 0.2s ease 0s;
+
+  z-index: 15;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+`
+
+export const Schedules = styled.ul`
+  width: 100%;
+  height: auto;
+  padding: 3.2rem;
+
+  display: flex;
+  column-gap: 2rem;
+
+  overflow-x: auto;
+  cursor: grab;
+`
+
+interface SchedulesItemProps {
+  active: boolean;
+}
+export const SchedulesItem = styled.li<SchedulesItemProps>`
+  min-width: 122px;
+  height: 156px;
+  padding: 2rem;
+
+  color: ${({ theme, active }) => active ? theme.colors.themeColors.text.dark : theme.colors.themeColors.text.normal};
+  border: 1px solid ${({ theme }) => darken(0.1, theme.colors.themeColors.tertiary)};
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+
+  label:first-child{
+    margin-bottom: 2%;
+  }
+  label:last-child{
+    margin-top: 2%;
+    > strong {
+      line-height: 14px;
+      margin-top: 8px;
+    }
+  }
+
+  label{
+    height: 46%;
+
+    /* user-select: none; */
+
+    font-family: Poppins;
+    font-size: 1.2rem;
+
+    display: flex;
+    flex-direction: column;
+
+    strong {
+      width: 100%;
+      font-size: 1.6rem;
     }
   }
 `

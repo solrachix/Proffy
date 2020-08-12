@@ -39,7 +39,9 @@ const PageHeader: React.FC<PageHeaderProps> = ({ backgroundImg = false, align = 
 
         <p>{description && description}</p>
 
-        {children}
+        <nav>
+          {children}
+        </nav>
       </HeaderContent>
     </PageHeaderComponent>
   )
