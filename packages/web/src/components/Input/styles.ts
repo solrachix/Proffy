@@ -76,3 +76,13 @@ export const EyeOff = styled(FiEyeOff)`
     color: ${({ theme }) => theme.colors.themeColors.primary.normal};
   }
 `
+
+export const InputGroup = styled.div`
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  column-gap: 1.6rem;
+
+  align-items: center;
+`
