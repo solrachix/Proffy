@@ -1,23 +1,41 @@
 import React, { SelectHTMLAttributes } from 'react'
 import PropTypes from 'prop-types'
 
-import { Container } from './styles'
+import { Container, Select } from './styles'
 
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+export interface OptionsType {value: string; label: string}
+
+interface SelectProps {
   flex?: number;
+  required?: boolean;
+  isLoading?: boolean;
+  isDisabled?: boolean;
+  isSearchable?: boolean;
+  isClearable?: boolean;
   name: string;
   label: string;
-  options: {
-    value: string;
-    label: string;
-  }[]
+  options: OptionsType[];
+  defaultValue?: OptionsType;
+  onChange?(props: OptionsType): void
 }
 
-const Select: React.FC<SelectProps> = ({ flex, name, label, options, ...props }) => {
+const SelectComponent: React.FC<SelectProps> = ({ flex, name, label, ...props }) => {
   return (
     <Container className="Select-block" style={{ flex }}>
       <label htmlFor={name}>{label}</label>
-      <select defaultValue="" id={name} {...props} >
+
+      <Select
+        classNamePrefix="select"
+        // defaultValue={colourOptions[0]}
+        // isRtl={isRtl}
+
+        // cacheOptions
+        // defaultOptions
+        menuPortalTarget={document.body}
+        {...props}
+      />
+
+      {/* <select defaultValue="" id={name} {...props} >
         <option value="" disabled hidden>Selecione uma opção</option>
 
         { options.map(option => (
@@ -29,16 +47,21 @@ const Select: React.FC<SelectProps> = ({ flex, name, label, options, ...props })
           </option>
         ))
         }
-      </select>
+      </select> */}
     </Container>
   )
 }
 
-Select.propTypes = {
+SelectComponent.propTypes = {
+  required: PropTypes.bool,
   flex: PropTypes.number,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired
 }
 
-export default Select
+SelectComponent.defaultProps = {
+  isClearable: true
+}
+
+export default SelectComponent
