@@ -85,4 +85,8 @@ export const InputGroup = styled.div`
   column-gap: 1.6rem;
 
   align-items: center;
+
+  @media (max-width: 750px) {
+   flex-direction: column
+  }
 `
