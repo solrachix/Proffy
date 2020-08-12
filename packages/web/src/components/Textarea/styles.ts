@@ -2,13 +2,19 @@ import styled from 'styled-components'
 import { darken } from 'polished'
 
 export const Container = styled.div`
+  position: relative;
+
   label {
     color: ${props => props.theme.colors.themeColors.text.light};
-  }
-  position: relative;
-  label {
     font-size: 1.4rem;
+
+    span {
+      margin-left: 1rem;
+      color: ${props => props.theme.colors.themeColors.text.normal};
+      font-size: 1rem;
+    }
   }
+
   textarea {
     width: 100%;
     height: 16rem;
