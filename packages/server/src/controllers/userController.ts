@@ -89,9 +89,9 @@ export default class UserController {
       .distinct()
 
     if (!user) response.status(400).json({ error: 'User not found' })
-    else if (!password) password = user.password
-    else if (!email) password = user.email
-    else if (!name) password = user.name
+    if (!password) password = user.password
+    if (!email) email = user.email
+    if (!name) name = user.name
 
     await db('users')
       .where('id', user_id)
