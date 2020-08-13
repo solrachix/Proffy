@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { darken } from 'polished'
 
 import select from 'react-select'
+import creatableSelect from 'react-select/creatable'
 
 export const Container = styled.div`
   position: relative;
@@ -10,7 +11,19 @@ export const Container = styled.div`
     font-size: 1.4rem;
     color: ${props => props.theme.colors.themeColors.text.light};
   }
-  /* select {
+
+  & + & {
+    margin-top: 1.4rem;
+  }
+  @media (min-width: 700px) {
+    & + & {
+      margin-top: 0;
+    }
+  }
+`
+
+export const Select = styled(select)`
+  .select__control{
     width: 100%;
     height: 5.6rem;
     margin-top: 0.8rem;
@@ -23,28 +36,10 @@ export const Container = styled.div`
 
     outline: 0;
     font: 1.6rem Archivo;
-  } */
-  /* &:focus-within::after {
-    width: calc(100% - 3.2rem);
-    height: 2px;
-    content: '';
-    background: ${props => props.theme.colors.themeColors.primary.light};
-    position: absolute;
-    left: 1.6rem;
-    right: 1.6rem;
-    bottom: 0;
-  } */
-  & + & {
-    margin-top: 1.4rem;
-  }
-  @media (min-width: 700px) {
-    & + & {
-      margin-top: 0;
-    }
   }
 `
 
-export const Select = styled(select)`
+export const CreatableSelect = styled(creatableSelect)`
   .select__control{
     width: 100%;
     height: 5.6rem;

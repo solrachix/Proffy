@@ -1,7 +1,7 @@
 import React, { SelectHTMLAttributes } from 'react'
 import PropTypes from 'prop-types'
 
-import { Container, Select } from './styles'
+import { Container, Select, CreatableSelect } from './styles'
 
 export interface OptionsType {value: string; label: string}
 
@@ -19,40 +19,35 @@ interface SelectProps {
   onChange?(props: OptionsType): void
 }
 
-const SelectComponent: React.FC<SelectProps> = ({ flex, name, label, ...props }) => {
+const SelectComponent: React.FC<SelectProps> = ({ isClearable = false, flex, name, label, ...props }) => {
   return (
     <Container className="Select-block" style={{ flex }}>
       <label htmlFor={name}>{label}</label>
 
-      <Select
-        classNamePrefix="select"
-        // defaultValue={colourOptions[0]}
-        // isRtl={isRtl}
+      {
+        isClearable
+          ? <CreatableSelect
+            classNamePrefix="select"
+            menuPortalTarget={document.body}
+            {...props}
+          />
+          : <Select
+            classNamePrefix="select"
+            // defaultValue={colourOptions[0]}
+            // isRtl={isRtl}
 
-        // cacheOptions
-        // defaultOptions
-        menuPortalTarget={document.body}
-        {...props}
-      />
-
-      {/* <select defaultValue="" id={name} {...props} >
-        <option value="" disabled hidden>Selecione uma opção</option>
-
-        { options.map(option => (
-          <option
-            key={`${option.value}-${option.label}`}
-            value={option.value}
-          >
-            {option.label}
-          </option>
-        ))
-        }
-      </select> */}
+            // cacheOptions
+            // defaultOptions
+            menuPortalTarget={document.body}
+            {...props}
+          />
+      }
     </Container>
   )
 }
 
 SelectComponent.propTypes = {
+  isClearable: PropTypes.bool,
   required: PropTypes.bool,
   flex: PropTypes.number,
   name: PropTypes.string.isRequired,
@@ -61,7 +56,7 @@ SelectComponent.propTypes = {
 }
 
 SelectComponent.defaultProps = {
-  isClearable: true
+  isClearable: false
 }
 
 export default SelectComponent
