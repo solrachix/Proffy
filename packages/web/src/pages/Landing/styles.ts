@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { rgba } from 'polished'
 
 export const PageLanding = styled.div`
   flex: 1;
@@ -63,6 +64,8 @@ export const LogoContainer = styled.div`
     font-size: 2.4rem;
     line-height: 4.6rem;
     margin-top: 0.8rem;
+
+    color: ${props => rgba(props.theme.colors.white, 0.6)};
   }
 
   @media (min-width: 1100px) {
@@ -72,19 +75,19 @@ export const LogoContainer = styled.div`
     margin: 0;
     h2 {
       text-align: initial;
-      font-size: 3.6rem;
+      font-size: 2.4rem;
     }
 
     img {
       width: auto;
-      height: 100%;
+      height: 50%;
     }
   }
 `
 
 export const HeroImage = styled.img`
-  width: 100%;
-
+  width: 90%;
+  margin-top: -50px;
   @media (min-width: 1100px) {
     grid-area: hero;
     justify-self: end;

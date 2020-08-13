@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { darken } from 'polished'
 
+import { FaUserAstronaut } from 'react-icons/fa'
+
 export const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -30,6 +32,9 @@ export const Main = styled.form`
 
   label {
     color:  ${props => props.theme.colors.themeColors.text.dark};
+  }
+  input, textarea {
+    color: ${props => props.theme.colors.themeColors.text.dark};
   }
 
   fieldset {
@@ -68,9 +73,17 @@ export const Main = styled.form`
     color: ${props => darken(0.1, props.theme.colors.themeColors.primary.dark)};
   }
 
+  fieldset .textarea-block {
+    margin-top: 2.4rem;
+  }
+
   fieldset .input-block + .textarea-block,
   fieldset .select-block + .input-block {
-    margin-top: 2.4rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .AboutTheClass .input-block {
+    margin-bottom: 0;
   }
 
   footer {
@@ -165,4 +178,36 @@ export const Main = styled.form`
       margin-top: 0;
     }
   }
+`
+
+export const Me = styled.div`
+  display: flex;
+  flex: 6;
+
+  justify-content: flex-start;
+  align-items: center;
+  strong {
+    color:  ${({ theme }) => theme.colors.themeColors.text.dark};
+    margin-left: 2rem;
+
+    font-family: Archivo;
+  }
+  img{
+    width: 6rem;
+    height: 6rem;
+
+    background: ${({ theme }) => theme.colors.themeColors.primary.light};
+    border-radius: 50%;
+  }
+`
+
+export const UserAstronaut = styled(FaUserAstronaut)`
+  width: 6rem;
+  height: 6rem;
+
+  color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.themeColors.primary.light};
+  border-radius: 50%;
+
+  z-index: 15;
 `

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import api from '@proffy/axios-config'
 
+import Header from './../../components/Header/index'
 import { AiFillHeart } from 'react-icons/ai'
 import {
   PageLanding,
@@ -30,6 +31,8 @@ const Landing: React.FC = () => {
   }, [])
   return (
     <PageLanding>
+      <Header
+      />
       <Head>
         <PageLandingContent>
           <LogoContainer>
@@ -57,7 +60,7 @@ const Landing: React.FC = () => {
             <img src={studyIcon} alt="Estudar" />
             Estudar
           </Link>
-          <Link to="/give-classes" className="give-classes">
+          <Link to="/class/new" className="give-classes">
             <img src={giveClassesIcon} alt="Dar aulas" />
             Dar aulas
           </Link>
