@@ -83,6 +83,35 @@ export default class ClassController {
 
   async show (request: Request, response: Response): Promise<Response<unknown>> {
     const { userId } = request.headers
+    const { id: classe_id = null } = request.params
+
+    if (classe_id) {
+      const trx = await db.transaction()
+      try {
+        const Class = (
+          await trx('classes')
+            .join('users', 'classes.user_id', '=', 'users.id')
+            .where('classes.id', '=', String(classe_id))
+            .select('classes.*', 'classes.id as class_id', 'classes.whatsapp as whatsappClass', 'users.*')
+        )[0]
+
+        const schedules = await trx('class_schedule')
+          .select('*')
+          .where('class_id', '=', Class.class_id)
+
+        delete Class.password
+        delete Class.id
+
+        await trx.commit()
+
+        return response.json({ ...Class, schedules })
+      } catch (e) {
+        await trx.rollback()
+        return response.status(400).json({
+          error: 'This class does not exist'
+        })
+      }
+    }
 
     const trx = await db.transaction()
 
@@ -161,6 +190,66 @@ export default class ClassController {
       })
 
       await trx('class_schedule').insert(classSchedule)
+
+      await trx.commit()
+
+      return response.status(201).send()
+    } catch (error) {
+      await trx.rollback()
+
+      return response.status(400).json({
+        error
+      })
+    }
+  }
+
+  async update (request: Request, response: Response): Promise<Response<unknown>> {
+    const user_id = request.headers.userId
+    let {
+      class_id,
+      whatsapp,
+      description,
+      cost,
+      schedule
+    } = request.body
+    interface Schedule extends ScheduleItem { id: number}
+
+    const [Class] = await db('classes')
+      .select('*')
+      .where('id', String(class_id))
+      .distinct()
+
+    if (!Class) response.status(400).json({ error: 'Class not found' })
+    if (!whatsapp) whatsapp = Class.whatsapp
+    if (!description) description = Class.description
+    if (!cost) cost = Class.cost
+    // if (!schedule) schedule = Class.schedule
+
+    const trx = await db.transaction()
+
+    try {
+      await trx('classes')
+        .where('id', String(class_id))
+        .update({
+          whatsapp,
+          description,
+          cost
+        })
+
+      for (const key in schedule) {
+        if (Object.prototype.hasOwnProperty.call(schedule, key)) {
+          const scheduleItem = schedule[key] as Schedule
+
+          await trx('class_schedule')
+            .where('id', scheduleItem.id)
+            .where('class_id', class_id)
+            .update({
+              week_day: scheduleItem.week_day,
+              from: convertHourToMinutes(scheduleItem.from),
+              to: convertHourToMinutes(scheduleItem.to)
+            })
+        }
+      }
 
       await trx.commit()
 
