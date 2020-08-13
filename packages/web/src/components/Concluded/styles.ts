@@ -17,7 +17,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  z-index: 20px;
+  z-index: 999999;
 `
 
 export const Content = styled.div`
