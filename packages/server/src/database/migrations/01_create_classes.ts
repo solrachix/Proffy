@@ -6,6 +6,8 @@ export async function up (knex: Knex): Promise<unknown> {
     table.increments('id').primary()
     table.string('subject').notNullable()
     table.decimal('cost').notNullable()
+    table.decimal('description').notNullable()
+    table.decimal('whatsapp').notNullable()
 
     table.integer('user_id')
       .notNullable()
