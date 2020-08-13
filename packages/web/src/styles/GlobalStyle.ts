@@ -58,4 +58,8 @@ export default createGlobalStyle`
     background: ${({ theme }) => theme.colors.themeColors.primary.dark};
     border-radius: 50px;
   }
+  ::-webkit-scrollbar:horizontal {
+    height: 8px;
+    background: transparent;
+  }
 `
