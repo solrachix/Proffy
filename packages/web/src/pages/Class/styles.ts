@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { darken } from 'polished'
+import { darken, rgba } from 'polished'
 
 import { FaUserAstronaut } from 'react-icons/fa'
 
@@ -36,6 +36,29 @@ export const Main = styled.form`
   input, textarea {
     color: ${props => props.theme.colors.themeColors.text.dark};
   }
+  .videoZone > button {
+    width: 200px;
+    height: 5.6rem;
+    margin: auto;
+    margin-top: 3.2rem;
+
+    background: ${props => rgba(props.theme.colors.themeColors.primary.normal, 0.4)};
+    color: ${props => props.theme.colors.themeColors.primary.normal};
+    border: 1px solid ${props => props.theme.colors.themeColors.primary.normal};
+    border-radius: 0.8rem;
+    cursor: pointer;
+    font: 700 1.6rem Archivo;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+
+  .videoZone > button:hover {
+    background: ${props => darken(0.1, props.theme.colors.themeColors.primary.normal)};
+    color: ${props => props.theme.colors.white};
+  }
 
   fieldset {
     border: 0;
@@ -68,6 +91,7 @@ export const Main = styled.form`
     cursor: pointer;
     transition: color 0.2s;
   }
+
 
   fieldset legend button:hover {
     color: ${props => darken(0.1, props.theme.colors.themeColors.primary.dark)};

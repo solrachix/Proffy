@@ -1,9 +1,10 @@
 import React, { useEffect, useState, FormEvent } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import api from '@proffy/axios-config'
 
 import { useAuth } from '../../contexts/auth'
 
+import DropZone from '../../components/DropZone'
 import PageHeader from '../../components/PageHeader'
 import Input, { InputGroup } from '../../components/Input'
 import Textarea from './../../components/Textarea/index'
@@ -34,7 +35,13 @@ interface ClassProps {
   schedules: { week_day: number, from: string, to: string }[]
 }
 
+interface VideoProps {
+  title: string | null;
+  description: string | null;
+  data: File | null
+}
 type Field = 'subject' | 'cost' | 'description' |'whatsapp' | 'user_id' | 'class_id' | 'whatsappClass' | 'name' | 'email' | 'avatar' | 'bio' | 'schedules'
+type Video = 'title' | 'description' | 'data'
 
 interface RouterProps {
   match: {
@@ -52,6 +59,12 @@ const EditClass: React.FC<RouterProps> = (props) => {
   const [Class, setClass] = useState<ClassProps | null>(null)
   const [isTheUserLoggedIn, setIsTheUserLoggedIn] = useState<boolean>(false)
   const [done, setDone] = useState(false)
+  const [addVideo, setAddVideo] = useState(false)
+  const [video, setVideo] = useState<VideoProps>({
+    title: null,
+    description: null,
+    data: null
+  })
 
   useEffect(() => {
     (async function () {
@@ -66,7 +79,7 @@ const EditClass: React.FC<RouterProps> = (props) => {
         })
 
         response.data.schedules = schedules
-        // setIsTheUserLoggedIn(user?.id === response.data.user_id)
+        setIsTheUserLoggedIn(user?.id === response.data.user_id)
         setClass(response.data)
       } catch (error) {
         console.log(error)
@@ -140,9 +153,39 @@ const EditClass: React.FC<RouterProps> = (props) => {
     }
   }
 
+  const ChangeVideoData = (
+    field: Video,
+    value: number | string | File
+  ) => {
+    setVideo({ ...video, [field]: value })
+  }
+  const videoUpload = async () => {
+    const data = new FormData()
+
+    if (video.title && video.description && video.data) {
+      data.append('title', video.title)
+      data.append('description', video.description)
+      data.append('files', video.data)
+
+      await api.post(`classes/${class_id}/newMidia`, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+
+      setAddVideo(false)
+      setVideo({
+        title: null,
+        description: null,
+        data: null
+      })
+    }
+  }
+
   if (!Class) {
     return <div />
   }
+
   return (
     <>
       <Concluded
@@ -223,6 +266,50 @@ const EditClass: React.FC<RouterProps> = (props) => {
               maxLength={300}
               readOnly={!isTheUserLoggedIn}
             />
+          </fieldset>
+          <fieldset className="videoZone">
+            <legend>
+              Videos gratuitos
+              {isTheUserLoggedIn && <button type="button" onClick={() => setAddVideo(true)}>
+                + Novo Video
+              </button>
+              }
+            </legend>
+
+            {
+              addVideo && (
+                <>
+                  <DropZone
+                    text="Video aula"
+                    onFileUploaded={(file) => ChangeVideoData('data', file)} />
+
+                  <Input
+                    name='title'
+                    label='Titulo'
+                    value={video.title || ''}
+                    onChange={(e) => {
+                      ChangeVideoData('title', e.target.value)
+                    }}
+                  />
+
+                  <Textarea
+                    name='videoDescription'
+                    label='Descrição do video'
+                    value={video.description || ''}
+                    onChange={(e) => {
+                      ChangeVideoData('description', e.target.value)
+                    }}
+                    maxLength={300}
+                  />
+
+                  <button type="button" onClick={videoUpload} >Enviar video</button>
+                </>
+              )
+            }
+            {
+              !addVideo && <button type="button" onClick={() => history.push(`/to_watch/${class_id}`)} >Assistir aos videos</button>
+            }
+
           </fieldset>
           <fieldset>
             <legend>
