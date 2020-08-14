@@ -6,10 +6,10 @@ export const LightTheme: ThemeTypes = {
     themeColors: {
       primary: {
         lighter: '#6866FB',
-        light: '#494CDB',
+        light: '#615df0',
         normal: '#5659EB',
-        dark: '#3846D4',
-        darker: '#6842C2'
+        dark: '#4046d4',
+        darker: '#3846D4'
       },
       secondary: '#F25040',
       tertiary: '#F0F0F7',
