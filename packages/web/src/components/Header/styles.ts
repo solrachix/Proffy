@@ -7,6 +7,9 @@ export const Container = styled.div`
   /* height: 50px; */
 
   background: ${props => props.theme.colors.themeColors.primary.normal};
+  svg {
+    cursor: pointer;
+  }
 
   > div {
     width: 90%;

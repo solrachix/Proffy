@@ -1,12 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../../contexts/auth'
 
+import { ReactComponent as BackIcon } from '../../assets/images/icons/back.svg'
 import Text from '../Text'
 import { Container, Power, UserAstronaut } from './styles'
 
 const Header: React.FC = () => {
   const { user, signOut } = useAuth()
+  const history = useHistory()
+  const [isRoot, setIsRoot] = useState(false)
+
+  useEffect(() => {
+    setIsRoot((window.location.pathname === '/'))
+  }, [])
 
   if (!user) {
     return <div />
@@ -15,6 +22,8 @@ const Header: React.FC = () => {
   return (
     <Container>
       <div>
+
+        {!isRoot && <BackIcon size={40} onClick={() => history.goBack()} />}
 
         <Link className="avatar" to="/profile" >
           {
