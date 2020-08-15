@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { darken } from 'polished'
+import { darken, rgba } from 'polished'
 import { FaUserAstronaut } from 'react-icons/fa'
 
 export const TeacherItemComponent = styled.article`
@@ -77,6 +77,24 @@ export const TeacherItemComponent = styled.article`
         transform: translateY(-10px);
         border-color: ${props => props.theme.colors.themeColors.text.normal};
         background: ${props => darken(0.02, props.theme.colors.themeColors.secondary)};
+      }
+    }
+
+    a.toWatch {
+      width: 18rem;
+      margin: auto;
+
+      background: ${props => rgba(props.theme.colors.themeColors.primary.normal, 0.4)};
+      color: ${props => props.theme.colors.themeColors.primary.normal};
+      border: 1px solid ${props => props.theme.colors.themeColors.primary.normal};
+
+      text-decoration: none;
+      transition: background-color 0.2s;
+
+      &:hover {
+        transform: translateY(0px);
+        background: ${props => darken(0.1, props.theme.colors.themeColors.primary.normal)};
+        color: ${props => props.theme.colors.white};
       }
     }
   }

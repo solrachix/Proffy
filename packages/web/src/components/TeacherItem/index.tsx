@@ -21,7 +21,8 @@ export interface Teacher {
   cost: number;
   subject: string;
   whatsapp: string;
-  class_schedule: ClassSchedule[]
+  class_schedule: ClassSchedule[];
+  class_id: number;
 }
 
 interface TeacherItemProps {
@@ -40,7 +41,9 @@ const TeacherItem : React.FC<TeacherItemProps> = ({ teacher }) => {
     /* eslint-disable @typescript-eslint/ban-ts-ignore */
     // @ts-ignore: Unreachable code error
     console.log(e.clientX)
-    e.currentTarget.scrollLeft = e.currentTarget.scrollLeft + 3
+    // e.currentTarget.scrollLeft = e.currentTarget.scrollLeft + 3
+
+    // e.currentTarget.style.transform = 10
   }
   return (
     <TeacherItemComponent>
@@ -99,6 +102,7 @@ const TeacherItem : React.FC<TeacherItemProps> = ({ teacher }) => {
           Preço/hora
           <strong>R$ {teacher.cost}</strong>
         </p>
+        <a className="toWatch" href={`/to_watch/${teacher.class_id}`} >Assistir aos videos</a>
         <a onClick={createNewConnection} href={`https://wa.me/${teacher.whatsapp}`} target="_blank" rel="noopener noreferrer">
           <img src={whatsappIcon} alt="Whatsapp"/>
           Entrar em contato
