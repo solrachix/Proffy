@@ -2,6 +2,7 @@
 
 import React, { useContext, useState, FormEvent } from 'react'
 import { useAuth } from '../../contexts/auth'
+import { useLoad } from '../../contexts/load'
 import { ThemeContext } from 'styled-components'
 import { rgba } from 'polished'
 
@@ -10,6 +11,7 @@ import Text from '../../components/Text'
 import { Container, Title, Content, Button } from './styles'
 
 const SingIn: React.FC = () => {
+  const { setLoad } = useLoad()
   const { signIn } = useAuth()
   const theme = useContext(ThemeContext).colors
   const $ = (elem: string): HTMLElement | null => window.document.querySelector<HTMLElement>(elem)
@@ -72,15 +74,13 @@ const SingIn: React.FC = () => {
   const handleSignIn = async (e: FormEvent) => {
     e.preventDefault()
 
-    console.log({
-      email: loginEmail,
-      password: loginPassword
-    })
     try {
       await signIn('/user/authenticate', {
         email: loginEmail,
         password: loginPassword
       })
+
+      setLoad(true)
     } catch (error) {
       console.log(error)
     }

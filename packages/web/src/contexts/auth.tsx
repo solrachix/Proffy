@@ -46,7 +46,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   async function signIn (url: string, params: unknown) {
     const { data } = await api.get<Authentication>(url, { params })
 
-    setUser(data.user)
+    setTimeout(() => {
+      setUser(data.user)
+    }, 3000)
 
     // Set toke for all request
     api.defaults.headers.Authorization = `Token ${data.token}`
@@ -63,7 +65,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{ signed: !!user, user, loading, signIn, signOut }}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   )
 }

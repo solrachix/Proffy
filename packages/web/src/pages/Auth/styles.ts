@@ -2,23 +2,24 @@ import styled from 'styled-components'
 import { darken, rgba } from 'polished'
 
 export const Container = styled.div`
-    display: flex;
-    width: 100%;
-    max-width: 1100px;
-    min-height: 100%;
-    height: auto;
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  min-height: 100%;
+  height: auto;
 
-    margin: 0 auto;
-    padding: 50px 30px 50px 30px;
+  background: ${({ theme }) => theme.colors.themeColors.tertiary};
+  margin: 0 auto;
+  padding: 50px 30px 50px 30px;
 
-    flex:1;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
+  flex:1;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 
-    @media screen and (max-width: 780px) {
-      padding: 30px 30px 0 30px;
-    }
+  @media screen and (max-width: 780px) {
+    padding: 30px 30px 0 30px;
+  }
 `
 
 export const Title = styled.div`

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useLoad } from '../../contexts/load'
 import { Link } from 'react-router-dom'
 import api from '@proffy/axios-config'
 
@@ -22,9 +23,11 @@ import studyIcon from '../../assets/images/icons/study.svg'
 import giveClassesIcon from '../../assets/images/icons/give-classes.svg'
 
 const Landing: React.FC = () => {
+  const { setLoad } = useLoad()
   const [totalConnections, setTotalConnections] = useState(0)
 
   useEffect(() => {
+    setLoad(false)
     api.get('connections').then(response => {
       setTotalConnections(response.data.total)
     })

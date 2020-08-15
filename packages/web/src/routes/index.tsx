@@ -1,21 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Switch } from 'react-router-dom'
-import { ThemeContext } from 'styled-components'
 
+import { useLoad } from '../contexts/load'
 import { useAuth } from '../contexts/auth'
 
 import AuthRoutes from './auth.routes'
 import AppRoutes from './app.routes'
 
 const Routes: React.FC = () => {
-  const theme = useContext(ThemeContext).colors
+  const { load, setLoad } = useLoad()
   const { signed, loading } = useAuth()
 
-  if (loading) {
-    return (
-      <div>aaaaaa</div>
-    )
-  }
+  useEffect(() => {
+    if (!(load === loading)) {
+      setLoad(false)
+    }
+  }, [loading])
 
   return (
     <BrowserRouter>
