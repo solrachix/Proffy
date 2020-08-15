@@ -21,7 +21,18 @@ export default class MidiaController {
       .join('midia', 'classes.id', '=', 'midia.classe_id')
       .select('midia.*')
 
-    return response.json(midia)
+    /**
+    * Processo de virtualização dos campos do banco.
+    */
+    const serializedMidia = midia.map((item) => {
+      return {
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        url: `${process.env.HOST_APP}:${process.env.PORT_APP}/uploads/${item.name}`
+      }
+    })
+    return response.json(serializedMidia)
   }
 
   async create (request: Request, response: Response): Promise<Response<unknown>> {
@@ -31,8 +42,6 @@ export default class MidiaController {
       title,
       description
     } = request.body
-
-    console.log(classe_id)
 
     files.map(async file => {
       await db('midia').insert({
