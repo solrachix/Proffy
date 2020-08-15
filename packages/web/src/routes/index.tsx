@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { BrowserRouter, Switch } from 'react-router-dom'
 import { ThemeContext } from 'styled-components'
 
 import { useAuth } from '../contexts/auth'
@@ -16,7 +17,13 @@ const Routes: React.FC = () => {
     )
   }
 
-  return signed ? <AppRoutes /> : <AuthRoutes />
+  return (
+    <BrowserRouter>
+      <Switch>
+        {signed ? <AppRoutes /> : <AuthRoutes />}
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
 export default Routes
