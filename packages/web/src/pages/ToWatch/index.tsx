@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react'
-import ReactPlayer from 'react-player'
+import React, { useRef, useState, useEffect } from 'react'
+import api from '@proffy/axios-config'
 
-import CodeDrop from '../../assets/Code-Drops-38.mp4'
+import ReactPlayer from 'react-player'
 import { ReactComponent as BackVideo } from '../../assets/images/icons/backVideo.svg'
 import { ReactComponent as FastForward } from '../../assets/images/icons/fastForward.svg'
 import { ReactComponent as TheaterMode } from '../../assets/images/icons/theaterMode.svg'
@@ -10,9 +10,40 @@ import Header from './../../components/Header/index'
 import { Container, Content, VideoContainer, Player, Item } from './styles'
 import Text from './../../components/Text'
 
-const ToWatch: React.FC = () => {
+interface ClassVideo {
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+}
+
+interface RouterProps {
+  match: {
+    params: {
+      class_id: string
+    }
+  }
+}
+
+const ToWatch: React.FC<RouterProps> = (props) => {
+  const class_id = props.match.params.class_id
   const videoRef = useRef<ReactPlayer>(null)
   const [theaterMode, setTheaterMode] = useState(false)
+  const [classVideos, setClassVideos] = useState<ClassVideo[] | null>(null)
+  const [currentVideo, setCurrentVideo] = useState<ClassVideo | null>(null)
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const response = await api.get(`/classes/${class_id}/listMidia`)
+
+        setCurrentVideo(response.data[0])
+        setClassVideos(response.data)
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, [])
 
   function fastForward10seconds () {
     const video = videoRef.current
@@ -31,6 +62,19 @@ const ToWatch: React.FC = () => {
   function changeMode () {
     setTheaterMode(!theaterMode)
   }
+
+  if (!classVideos) return <div />
+  if (!currentVideo) return <div />
+
+  function changeVideo (id: number) {
+    const video = classVideos!.filter(video => video.id === id)[0]
+
+    if (video) {
+      console.log(video)
+      setCurrentVideo(video)
+    }
+  }
+
   return (
     <Container>
       <Header />
@@ -40,7 +84,7 @@ const ToWatch: React.FC = () => {
           <Player>
             <ReactPlayer
               ref={videoRef}
-              url={CodeDrop}
+              url={currentVideo.url}
               config={{
                 file: {
                   forceVideo: true
@@ -80,18 +124,14 @@ const ToWatch: React.FC = () => {
             <div>
 
               <ul>
-                <Item>
-                  <button type="button"></button>
-                  <a href="">link</a>
-                </Item>
-                <Item actived={true}>
-                  <button type="button"></button>
-                  <a href="">link</a>
-                </Item>
-                <Item>
-                  <button type="button"></button>
-                  <a href="">link</a>
-                </Item>
+                {
+                  classVideos.map(video => (
+                    <Item key={video.id} actived={(currentVideo.id === video.id)}>
+                      <button type="button"></button>
+                      <a href="#" onClick={() => changeVideo(video.id)}>{video.title}</a>
+                    </Item>
+                  ))
+                }
 
               </ul>
 
@@ -100,8 +140,8 @@ const ToWatch: React.FC = () => {
           </aside>
         </VideoContainer>
 
-        <Text text="testee" size={3} weight="bold" />
-        <Text text="testeetesteetesteetesteetestee" size={1} />
+        <Text text={currentVideo.title} size={3} weight="bold" />
+        <Text text={currentVideo.description} size={1} />
       </Content>
 
     </Container>
