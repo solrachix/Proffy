@@ -1,15 +1,16 @@
 import styled from 'styled-components'
+
 import { FiPower } from 'react-icons/fi'
 import { FaUserAstronaut } from 'react-icons/fa'
+
+import { ReactComponent as backIcon } from '../../assets/images/icons/back.svg'
 
 export const Container = styled.div`
   width: 100%;
   /* height: 50px; */
 
   background: ${props => props.theme.colors.themeColors.primary.normal};
-  svg {
-    cursor: pointer;
-  }
+
 
   > div {
     width: 90%;
@@ -42,6 +43,16 @@ export const Container = styled.div`
       max-width: 1100px;
     }
  }
+`
+
+interface BackIconProps {
+  size: number
+}
+export const BackIcon = styled(backIcon)<BackIconProps>`
+  width: ${({ size }) => size}%;
+  height: ${({ size }) => size}%;
+
+  cursor: pointer;
 `
 
 export const Power = styled(FiPower)`
