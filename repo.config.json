@@ -1,0 +1,12 @@
+{
+  "project_name": "Proffy",
+  "type": "Fullstack",
+  
+  "template_url": "./.github/logo.png",
+  "logo_url": "./.github/logo.png",
+
+
+  "backend": "./packages/server",
+  "web": "./packages/web",
+  "mobile": "./packages/mobile"
+}
